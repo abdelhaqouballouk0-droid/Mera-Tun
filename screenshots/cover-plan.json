@@ -1,0 +1,103 @@
+{
+  "campaign": {
+    "app_name": "جرّبها",
+    "forbidden_copy_terms": [
+      "جرّبها",
+      "Jarribha",
+      "Jarrebha",
+      "Try It",
+      "TryIt"
+    ],
+    "idea": "Turn skills into short practical challenges with progress tracking and a consented learning coach",
+    "locales": ["en", "ar"],
+    "platforms": ["iphone-6.9", "ipad-13"],
+    "orientation": "portrait"
+  },
+  "scenes": [
+    {
+      "order": 1,
+      "id": "home",
+      "route_or_action": "Launch with SCREENSHOT_SCENE=home",
+      "state": "Three fictional paths; two active; seven completed challenges",
+      "visible_proof": "Populated home shows active paths, completed challenges, and a 50% continuation card",
+      "copy": {
+        "en": {
+          "title": "Learn by doing",
+          "subtitle": "Turn any skill into clear, practical steps."
+        },
+        "ar": {
+          "title": "تعلّم بالممارسة",
+          "subtitle": "حوّل أي مهارة إلى خطوات عملية واضحة."
+        }
+      }
+    },
+    {
+      "order": 2,
+      "id": "challenge",
+      "route_or_action": "Launch with SCREENSHOT_SCENE=challenge",
+      "state": "Fictional photography path at 50% with the third challenge active",
+      "visible_proof": "Current challenge, instructions, completion action, and four-step sequence are visible",
+      "copy": {
+        "en": {
+          "title": "One focused step",
+          "subtitle": "Complete a practical challenge, then keep moving forward."
+        },
+        "ar": {
+          "title": "خطوة واحدة مركّزة",
+          "subtitle": "أنجز تحدّياً عملياً ثم واصل التقدّم."
+        }
+      }
+    },
+    {
+      "order": 3,
+      "id": "journeys",
+      "route_or_action": "Launch with SCREENSHOT_SCENE=journeys",
+      "state": "Three fictional paths at 50%, 25%, and 100%",
+      "visible_proof": "Several learning paths and individual progress rings are visible",
+      "copy": {
+        "en": {
+          "title": "Build skills your way",
+          "subtitle": "Track several learning paths at your own pace."
+        },
+        "ar": {
+          "title": "ابنِ مهاراتك بطريقتك",
+          "subtitle": "تابع مسارات متعددة بالوتيرة التي تناسبك."
+        }
+      }
+    },
+    {
+      "order": 4,
+      "id": "coach",
+      "route_or_action": "Launch with SCREENSHOT_SCENE=coach",
+      "state": "Consent already granted; fictional coaching conversation; no network request",
+      "visible_proof": "User asks for a challenge and one hint; coach answers both requests",
+      "copy": {
+        "en": {
+          "title": "A hint when needed",
+          "subtitle": "Ask for a challenge, feedback, or one hint."
+        },
+        "ar": {
+          "title": "تلميح حين تحتاجه",
+          "subtitle": "اطلب تحدّياً أو ملاحظات أو تلميحاً واحداً."
+        }
+      }
+    },
+    {
+      "order": 5,
+      "id": "insights",
+      "route_or_action": "Launch with SCREENSHOT_SCENE=insights",
+      "state": "Fictional aggregate progress at 58%, seven steps, one completed path",
+      "visible_proof": "Overall progress, completed steps, completed paths, and next milestone are visible",
+      "copy": {
+        "en": {
+          "title": "See every step count",
+          "subtitle": "Follow progress, completed steps, and finished paths."
+        },
+        "ar": {
+          "title": "شاهد أثر كل خطوة",
+          "subtitle": "تابع تقدّمك وخطواتك ومساراتك المكتملة."
+        }
+      }
+    }
+  ]
+}

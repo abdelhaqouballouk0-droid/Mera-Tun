@@ -1,0 +1,214 @@
+{
+  "campaign": {
+    "locales": ["en", "ar"],
+    "platforms": ["iphone-6.9", "ipad-13"],
+    "screen_count_per_set": 5,
+    "orientation": "portrait",
+    "status_bar_time": "9:41",
+    "fictional_demo_data": true,
+    "background_generation": "Built-in image generation; separate iPhone and iPad portrait masters",
+    "copy_plan": "screenshots/cover-plan.json"
+  },
+  "assets": [
+    {
+      "locale": "en",
+      "platform": "iphone-6.9",
+      "dimensions": "1320x2868",
+      "scene": "home",
+      "claim": "Turn any skill into clear, practical steps.",
+      "source_capture": "screenshots/raw/en/iphone-6.9/01-home.png",
+      "final_file": "screenshots/final/en/iphone-6.9/01-home.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "en",
+      "platform": "iphone-6.9",
+      "dimensions": "1320x2868",
+      "scene": "challenge",
+      "claim": "Complete a practical challenge, then keep moving forward.",
+      "source_capture": "screenshots/raw/en/iphone-6.9/02-challenge.png",
+      "final_file": "screenshots/final/en/iphone-6.9/02-challenge.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "en",
+      "platform": "iphone-6.9",
+      "dimensions": "1320x2868",
+      "scene": "journeys",
+      "claim": "Track several learning paths at your own pace.",
+      "source_capture": "screenshots/raw/en/iphone-6.9/03-journeys.png",
+      "final_file": "screenshots/final/en/iphone-6.9/03-journeys.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "en",
+      "platform": "iphone-6.9",
+      "dimensions": "1320x2868",
+      "scene": "coach",
+      "claim": "Ask for a challenge, feedback, or one hint.",
+      "source_capture": "screenshots/raw/en/iphone-6.9/04-coach.png",
+      "final_file": "screenshots/final/en/iphone-6.9/04-coach.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "en",
+      "platform": "iphone-6.9",
+      "dimensions": "1320x2868",
+      "scene": "insights",
+      "claim": "Follow progress, completed steps, and finished paths.",
+      "source_capture": "screenshots/raw/en/iphone-6.9/05-insights.png",
+      "final_file": "screenshots/final/en/iphone-6.9/05-insights.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "ar",
+      "platform": "iphone-6.9",
+      "dimensions": "1320x2868",
+      "scene": "home",
+      "claim": "حوّل أي مهارة إلى خطوات عملية واضحة.",
+      "source_capture": "screenshots/raw/ar/iphone-6.9/01-home.png",
+      "final_file": "screenshots/final/ar/iphone-6.9/01-home.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "ar",
+      "platform": "iphone-6.9",
+      "dimensions": "1320x2868",
+      "scene": "challenge",
+      "claim": "أنجز تحدّياً عملياً ثم واصل التقدّم.",
+      "source_capture": "screenshots/raw/ar/iphone-6.9/02-challenge.png",
+      "final_file": "screenshots/final/ar/iphone-6.9/02-challenge.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "ar",
+      "platform": "iphone-6.9",
+      "dimensions": "1320x2868",
+      "scene": "journeys",
+      "claim": "تابع مسارات متعددة بالوتيرة التي تناسبك.",
+      "source_capture": "screenshots/raw/ar/iphone-6.9/03-journeys.png",
+      "final_file": "screenshots/final/ar/iphone-6.9/03-journeys.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "ar",
+      "platform": "iphone-6.9",
+      "dimensions": "1320x2868",
+      "scene": "coach",
+      "claim": "اطلب تحدّياً أو ملاحظات أو تلميحاً واحداً.",
+      "source_capture": "screenshots/raw/ar/iphone-6.9/04-coach.png",
+      "final_file": "screenshots/final/ar/iphone-6.9/04-coach.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "ar",
+      "platform": "iphone-6.9",
+      "dimensions": "1320x2868",
+      "scene": "insights",
+      "claim": "تابع تقدّمك وخطواتك ومساراتك المكتملة.",
+      "source_capture": "screenshots/raw/ar/iphone-6.9/05-insights.png",
+      "final_file": "screenshots/final/ar/iphone-6.9/05-insights.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "en",
+      "platform": "ipad-13",
+      "dimensions": "2064x2752",
+      "scene": "home",
+      "claim": "Turn any skill into clear, practical steps.",
+      "source_capture": "screenshots/raw/en/ipad-13/01-home.png",
+      "final_file": "screenshots/final/en/ipad-13/01-home.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "en",
+      "platform": "ipad-13",
+      "dimensions": "2064x2752",
+      "scene": "challenge",
+      "claim": "Complete a practical challenge, then keep moving forward.",
+      "source_capture": "screenshots/raw/en/ipad-13/02-challenge.png",
+      "final_file": "screenshots/final/en/ipad-13/02-challenge.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "en",
+      "platform": "ipad-13",
+      "dimensions": "2064x2752",
+      "scene": "journeys",
+      "claim": "Track several learning paths at your own pace.",
+      "source_capture": "screenshots/raw/en/ipad-13/03-journeys.png",
+      "final_file": "screenshots/final/en/ipad-13/03-journeys.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "en",
+      "platform": "ipad-13",
+      "dimensions": "2064x2752",
+      "scene": "coach",
+      "claim": "Ask for a challenge, feedback, or one hint.",
+      "source_capture": "screenshots/raw/en/ipad-13/04-coach.png",
+      "final_file": "screenshots/final/en/ipad-13/04-coach.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "en",
+      "platform": "ipad-13",
+      "dimensions": "2064x2752",
+      "scene": "insights",
+      "claim": "Follow progress, completed steps, and finished paths.",
+      "source_capture": "screenshots/raw/en/ipad-13/05-insights.png",
+      "final_file": "screenshots/final/en/ipad-13/05-insights.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "ar",
+      "platform": "ipad-13",
+      "dimensions": "2064x2752",
+      "scene": "home",
+      "claim": "حوّل أي مهارة إلى خطوات عملية واضحة.",
+      "source_capture": "screenshots/raw/ar/ipad-13/01-home.png",
+      "final_file": "screenshots/final/ar/ipad-13/01-home.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "ar",
+      "platform": "ipad-13",
+      "dimensions": "2064x2752",
+      "scene": "challenge",
+      "claim": "أنجز تحدّياً عملياً ثم واصل التقدّم.",
+      "source_capture": "screenshots/raw/ar/ipad-13/02-challenge.png",
+      "final_file": "screenshots/final/ar/ipad-13/02-challenge.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "ar",
+      "platform": "ipad-13",
+      "dimensions": "2064x2752",
+      "scene": "journeys",
+      "claim": "تابع مسارات متعددة بالوتيرة التي تناسبك.",
+      "source_capture": "screenshots/raw/ar/ipad-13/03-journeys.png",
+      "final_file": "screenshots/final/ar/ipad-13/03-journeys.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "ar",
+      "platform": "ipad-13",
+      "dimensions": "2064x2752",
+      "scene": "coach",
+      "claim": "اطلب تحدّياً أو ملاحظات أو تلميحاً واحداً.",
+      "source_capture": "screenshots/raw/ar/ipad-13/04-coach.png",
+      "final_file": "screenshots/final/ar/ipad-13/04-coach.png",
+      "visual_inspected": true
+    },
+    {
+      "locale": "ar",
+      "platform": "ipad-13",
+      "dimensions": "2064x2752",
+      "scene": "insights",
+      "claim": "تابع تقدّمك وخطواتك ومساراتك المكتملة.",
+      "source_capture": "screenshots/raw/ar/ipad-13/05-insights.png",
+      "final_file": "screenshots/final/ar/ipad-13/05-insights.png",
+      "visual_inspected": true
+    }
+  ]
+}
