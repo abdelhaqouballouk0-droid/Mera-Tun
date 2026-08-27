@@ -62,23 +62,26 @@ workflows:
           success: true
           failure: true
 
-  # Real-device / TestFlight iOS build (ad hoc, signed IPA).
+  # App Store / TestFlight build — signed for app_store distribution and
+  # auto-uploaded to App Store Connect on success.
   # PREREQUISITE — not usable as-is until you set this up in Codemagic:
   #   Team settings > Integrations > App Store Connect: add an API key
-  #   from your Apple Developer account. Codemagic then fetches/creates
-  #   the certificate and provisioning profile automatically at build time
-  #   (no need to upload them yourself). Until that's configured, this
-  #   workflow will fail — use ios-simulator-debug above to just test the
-  #   Flutter/Dart side of the build.
-  ios-device-release:
-    name: iOS Device Release (needs App Store Connect key set up in Codemagic)
+  #   from your Apple Developer account (App Store Connect > Users and
+  #   Access > Keys > Integrations, role "App Manager" or higher).
+  #   Codemagic then fetches/creates the certificate and provisioning
+  #   profile automatically at build time (no need to upload them
+  #   yourself), and uses the same key to push the build to App Store
+  #   Connect. Until that's configured, this workflow will fail — use
+  #   ios-simulator-debug above to just test the Flutter/Dart side.
+  ios-app-store:
+    name: iOS App Store Build (needs App Store Connect key set up in Codemagic)
     max_build_duration: 60
     environment:
       flutter: stable
       xcode: latest
       cocoapods: default
       ios_signing:
-        distribution_type: ad_hoc
+        distribution_type: app_store
         bundle_identifier: com.meratun.app
       vars:
         BUNDLE_ID: com.meratun.app
@@ -95,7 +98,7 @@ workflows:
       - name: Fetch signing files
         script: |
           app-store-connect fetch-signing-files "$BUNDLE_ID" \
-            --type IOS_APP_ADHOC \
+            --type IOS_APP_STORE \
             --create
       - name: Use signing files
         script: xcode-project use-profiles
@@ -114,3 +117,9 @@ workflows:
         notify:
           success: true
           failure: true
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        # Only pushes to TestFlight, not for App Store review — flip this
+        # on once you're ready to actually submit for review.
+        submit_to_app_store: false
