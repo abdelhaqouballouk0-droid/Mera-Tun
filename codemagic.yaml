@@ -82,9 +82,6 @@ workflows:
       flutter: stable
       xcode: latest
       cocoapods: default
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.meratun.app
       vars:
         BUNDLE_ID: com.meratun.app
         GROQ_API_KEY: $GROQ_API_KEY
