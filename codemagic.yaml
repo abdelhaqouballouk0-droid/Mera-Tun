@@ -82,9 +82,9 @@ workflows:
       cocoapods: default
       ios_signing:
         distribution_type: ad_hoc
-        bundle_identifier: com.yourcompany.tryit
+        bundle_identifier: com.meratun.app
       vars:
-        BUNDLE_ID: com.yourcompany.tryit
+        BUNDLE_ID: com.meratun.app
         GROQ_API_KEY: $GROQ_API_KEY
         ADS_REMOTE_CONFIG_URL: $ADS_REMOTE_CONFIG_URL
     scripts:

@@ -1,4 +1,4 @@
-package com.example.tryit
+package com.meratun.app
 
 import android.content.Intent
 import android.net.Uri
@@ -8,8 +8,8 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 
 class MainActivity : FlutterActivity() {
-    private val channelName = "com.yourcompany.tryit/platform"
-    private val prefsName = "com.yourcompany.tryit.platform_store"
+    private val channelName = "com.meratun.app/platform"
+    private val prefsName = "com.meratun.app.platform_store"
 
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)

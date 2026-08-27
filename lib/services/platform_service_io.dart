@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 
-const _channel = MethodChannel('com.yourcompany.tryit/platform');
+const _channel = MethodChannel('com.meratun.app/platform');
 
 Future<bool> openExternalUrl(String url) async {
   try {

@@ -26,7 +26,7 @@ import UIKit
 
   private func configurePlatformChannel(binaryMessenger: FlutterBinaryMessenger) {
     let channel = FlutterMethodChannel(
-      name: "com.yourcompany.tryit/platform",
+      name: "com.meratun.app/platform",
       binaryMessenger: binaryMessenger
     )
     channel.setMethodCallHandler { call, result in

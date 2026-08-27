@@ -5,7 +5,7 @@ import 'local_store.dart';
 LocalStore createLocalStore() => SharedPreferencesStore();
 
 class SharedPreferencesStore implements LocalStore {
-  static const _channel = MethodChannel('com.yourcompany.tryit/platform');
+  static const _channel = MethodChannel('com.meratun.app/platform');
 
   @override
   Future<String?> read(String key) =>

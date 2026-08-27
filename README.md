@@ -22,7 +22,7 @@ flutter build ios --release --no-codesign
 
 ## قبل App Store Connect
 
-- استبدل معرّف الحزمة `com.yourcompany.tryit` بمعرّف حسابك النهائي إذا لزم.
+- معرّف الحزمة الحالي هو `com.meratun.app` (iOS وAndroid) — تأكد أنه مطابق لما هو مسجّل في حساب Apple Developer وGoogle Play Console.
 - انشر وكيل Groq، ثم مرّر رابطه العام عند البناء:
 
   `flutter run --dart-define=GROQ_PROXY_URL=https://YOUR-WORKER.workers.dev`

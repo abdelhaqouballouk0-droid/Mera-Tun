@@ -3,7 +3,7 @@ class AppConfig {
 
   static const appName = 'Mera Tune';
   static const language = 'ar';
-  static const bundleId = 'com.yourcompany.tryit';
+  static const bundleId = 'com.meratun.app';
   static const version = '1.0.0';
   static const buildNumber = '1';
   static const appIdea =
