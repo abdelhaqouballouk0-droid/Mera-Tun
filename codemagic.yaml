@@ -2,7 +2,6 @@ workflows:
   android-debug:
     name: Android Debug (test build)
     max_build_duration: 30
-    instance_type: linux_x2
     environment:
       flutter: stable
       vars:
@@ -35,7 +34,6 @@ workflows:
   ios-simulator-debug:
     name: iOS Simulator Debug (test build, no signing needed)
     max_build_duration: 60
-    instance_type: mac_mini_m2
     environment:
       flutter: stable
       xcode: latest
@@ -75,7 +73,6 @@ workflows:
   ios-device-release:
     name: iOS Device Release (needs App Store Connect key set up in Codemagic)
     max_build_duration: 60
-    instance_type: mac_mini_m2
     environment:
       flutter: stable
       xcode: latest
