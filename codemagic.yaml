@@ -1,0 +1,119 @@
+workflows:
+  android-debug:
+    name: Android Debug (test build)
+    max_build_duration: 30
+    instance_type: linux_x2
+    environment:
+      flutter: stable
+      vars:
+        # Pass through the same --dart-define values used locally (see
+        # .env.example). Leave GROQ_API_KEY unset for a build-only test —
+        # the app builds and runs fine without it, AI chat just stays
+        # gated behind consent + a working proxy URL.
+        GROQ_API_KEY: $GROQ_API_KEY
+        ADS_REMOTE_CONFIG_URL: $ADS_REMOTE_CONFIG_URL
+    scripts:
+      - name: Get Flutter packages
+        script: flutter pub get
+      - name: Analyze
+        script: flutter analyze
+      - name: Build debug APK
+        script: |
+          flutter build apk --debug \
+            --dart-define=GROQ_API_KEY=$GROQ_API_KEY \
+            --dart-define=ADS_REMOTE_CONFIG_URL=$ADS_REMOTE_CONFIG_URL
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk
+    publishing:
+      email:
+        recipients:
+          - ayoubboutglay318@gmail.com
+        notify:
+          success: true
+          failure: true
+
+  ios-simulator-debug:
+    name: iOS Simulator Debug (test build, no signing needed)
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+      vars:
+        GROQ_API_KEY: $GROQ_API_KEY
+        ADS_REMOTE_CONFIG_URL: $ADS_REMOTE_CONFIG_URL
+    scripts:
+      - name: Get Flutter packages
+        script: flutter pub get
+      - name: Install CocoaPods
+        script: |
+          find . -maxdepth 2 -name "Podfile" -execdir pod install \;
+      - name: Build for iOS Simulator
+        script: |
+          flutter build ios --debug --simulator \
+            --dart-define=GROQ_API_KEY=$GROQ_API_KEY \
+            --dart-define=ADS_REMOTE_CONFIG_URL=$ADS_REMOTE_CONFIG_URL
+    artifacts:
+      - build/ios/iphonesimulator/*.app
+    publishing:
+      email:
+        recipients:
+          - ayoubboutglay318@gmail.com
+        notify:
+          success: true
+          failure: true
+
+  # Real-device / TestFlight iOS build (ad hoc, signed IPA).
+  # PREREQUISITE — not usable as-is until you set this up in Codemagic:
+  #   Team settings > Integrations > App Store Connect: add an API key
+  #   from your Apple Developer account. Codemagic then fetches/creates
+  #   the certificate and provisioning profile automatically at build time
+  #   (no need to upload them yourself). Until that's configured, this
+  #   workflow will fail — use ios-simulator-debug above to just test the
+  #   Flutter/Dart side of the build.
+  ios-device-release:
+    name: iOS Device Release (needs App Store Connect key set up in Codemagic)
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+      ios_signing:
+        distribution_type: ad_hoc
+        bundle_identifier: com.yourcompany.tryit
+      vars:
+        BUNDLE_ID: com.yourcompany.tryit
+        GROQ_API_KEY: $GROQ_API_KEY
+        ADS_REMOTE_CONFIG_URL: $ADS_REMOTE_CONFIG_URL
+    scripts:
+      - name: Get Flutter packages
+        script: flutter pub get
+      - name: Install CocoaPods
+        script: |
+          find . -maxdepth 2 -name "Podfile" -execdir pod install \;
+      - name: Set up code signing
+        script: keychain initialize
+      - name: Fetch signing files
+        script: |
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_ADHOC \
+            --create
+      - name: Use signing files
+        script: xcode-project use-profiles
+      - name: Build IPA
+        script: |
+          flutter build ipa --release \
+            --export-options-plist=/Users/builder/export_options.plist \
+            --dart-define=GROQ_API_KEY=$GROQ_API_KEY \
+            --dart-define=ADS_REMOTE_CONFIG_URL=$ADS_REMOTE_CONFIG_URL
+    artifacts:
+      - build/ios/ipa/*.ipa
+    publishing:
+      email:
+        recipients:
+          - ayoubboutglay318@gmail.com
+        notify:
+          success: true
+          failure: true
