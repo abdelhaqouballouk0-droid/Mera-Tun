@@ -1,0 +1,38 @@
+{
+  "android": {
+    "admobData": {
+      "bannerIds": ["ca-app-pub-1950848698072572/9739774080"],
+      "interIds": ["ca-app-pub-1950848698072572/5417385691"],
+      "nativeIds": ["ca-app-pub-3940256099942544/2247696110"],
+      "rewardIds": ["ca-app-pub-3940256099942544/5224354917"],
+      "openAdsId": "ca-app-pub-3940256099942544/9257395921"
+    },
+    "settings": {
+      "enableBanners": true,
+      "enableInterstitials": true,
+      "enableNative": true,
+      "enableRewarded": true,
+      "enableAppOpen": true,
+      "interInterval": 3,
+      "isAdFree": true
+    }
+  },
+  "ios": {
+    "admobData": {
+      "bannerIds": ["ca-app-pub-1950848698072572/7722211330"],
+      "interIds": ["ca-app-pub-1950848698072572/9773659601"],
+      "nativeIds": ["ca-app-pub-3940256099942544/3986624511"],
+      "rewardIds": ["ca-app-pub-3940256099942544/1712485313"],
+      "openAdsId": "ca-app-pub-3940256099942544/5662855259"
+    },
+    "settings": {
+      "enableBanners": true,
+      "enableInterstitials": true,
+      "enableNative": true,
+      "enableRewarded": true,
+      "enableAppOpen": true,
+      "interInterval": 3,
+      "isAdFree": true
+    }
+  }
+}

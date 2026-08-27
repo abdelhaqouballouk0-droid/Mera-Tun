@@ -17,7 +17,7 @@ class SettingsPage extends StatelessWidget {
     if (!opened && context.mounted) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text(AppStrings.openLinkError)));
+      ).showSnackBar(SnackBar(content: Text(AppStrings.openLinkError)));
     }
   }
 
@@ -29,22 +29,48 @@ class SettingsPage extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 110),
           children: [
-            const PageHeader(title: AppStrings.settings),
+            PageHeader(title: AppStrings.settings),
             const SizedBox(height: 22),
-            const _SectionLabel(AppStrings.general),
+            _SectionLabel(AppStrings.general),
             Card(
               child: Column(
                 children: [
-                  const ListTile(
-                    leading: Icon(Icons.language_rounded),
-                    title: Text(AppStrings.language),
-                    subtitle: Text(AppStrings.arabic),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.language_rounded),
+                            const SizedBox(width: 32),
+                            Text(AppStrings.language),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        SegmentedButton<AppLanguage>(
+                          segments: [
+                            ButtonSegment(
+                              value: AppLanguage.ar,
+                              label: Text(AppStrings.arabic),
+                            ),
+                            ButtonSegment(
+                              value: AppLanguage.en,
+                              label: Text(AppStrings.english),
+                            ),
+                          ],
+                          selected: {state.language},
+                          onSelectionChanged: (selection) =>
+                              state.setLanguage(selection.first),
+                        ),
+                      ],
+                    ),
                   ),
                   const Divider(height: 1, indent: 56),
                   ListTile(
                     leading: const Icon(Icons.info_outline_rounded),
-                    title: const Text(AppStrings.version),
-                    subtitle: const Text(
+                    title: Text(AppStrings.version),
+                    subtitle: Text(
                       '${AppConfig.version} (${AppConfig.buildNumber})',
                     ),
                   ),
@@ -52,13 +78,13 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const _SectionLabel(AppStrings.aiPrivacy),
+            _SectionLabel(AppStrings.aiPrivacy),
             Card(
               child: Column(
                 children: [
                   ListTile(
                     leading: const Icon(Icons.shield_outlined),
-                    title: const Text(AppStrings.aiPrivacy),
+                    title: Text(AppStrings.aiPrivacy),
                     subtitle: Text(
                       state.hasAiConsent
                           ? AppStrings.aiConsentGranted
@@ -69,7 +95,7 @@ class SettingsPage extends StatelessWidget {
                     const Divider(height: 1, indent: 56),
                     ListTile(
                       leading: const Icon(Icons.no_accounts_outlined),
-                      title: const Text(AppStrings.revokeConsent),
+                      title: Text(AppStrings.revokeConsent),
                       textColor: Theme.of(context).colorScheme.error,
                       iconColor: Theme.of(context).colorScheme.error,
                       onTap: () => _revoke(context),
@@ -79,20 +105,20 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const _SectionLabel(AppStrings.support),
+            _SectionLabel(AppStrings.support),
             Card(
               child: Column(
                 children: [
                   ListTile(
                     leading: const Icon(Icons.privacy_tip_outlined),
-                    title: const Text(AppStrings.privacy),
+                    title: Text(AppStrings.privacy),
                     trailing: const Icon(Icons.open_in_new_rounded, size: 20),
                     onTap: () => _open(context, AppConfig.privacyPolicyUrl),
                   ),
                   const Divider(height: 1, indent: 56),
                   ListTile(
                     leading: const Icon(Icons.support_agent_rounded),
-                    title: const Text(AppStrings.support),
+                    title: Text(AppStrings.support),
                     trailing: const Icon(Icons.open_in_new_rounded, size: 20),
                     onTap: () => _open(context, AppConfig.supportUrl),
                   ),
@@ -100,7 +126,7 @@ class SettingsPage extends StatelessWidget {
                     const Divider(height: 1, indent: 56),
                     ListTile(
                       leading: const Icon(Icons.description_outlined),
-                      title: const Text(AppStrings.terms),
+                      title: Text(AppStrings.terms),
                       trailing: const Icon(Icons.open_in_new_rounded, size: 20),
                       onTap: () => _open(context, AppConfig.termsUrl),
                     ),
@@ -109,7 +135,7 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const _SectionLabel(AppStrings.about),
+            _SectionLabel(AppStrings.about),
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(20),
@@ -125,7 +151,7 @@ class SettingsPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 14),
-                    const Expanded(child: Text(AppStrings.aboutBody)),
+                    Expanded(child: Text(AppStrings.aboutBody)),
                   ],
                 ),
               ),
@@ -141,16 +167,16 @@ class SettingsPage extends StatelessWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text(AppStrings.revokeConsent),
-        content: const Text(AppStrings.revokeConfirmation),
+        title: Text(AppStrings.revokeConsent),
+        content: Text(AppStrings.revokeConfirmation),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, false),
-            child: const Text(AppStrings.cancel),
+            child: Text(AppStrings.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(dialogContext, true),
-            child: const Text(AppStrings.revokeConsent),
+            child: Text(AppStrings.revokeConsent),
           ),
         ],
       ),

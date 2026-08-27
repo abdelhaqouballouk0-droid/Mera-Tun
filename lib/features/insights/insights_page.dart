@@ -17,7 +17,7 @@ class InsightsPage extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 110),
           children: [
-            const PageHeader(
+            PageHeader(
               title: AppStrings.insights,
               subtitle: AppStrings.todayEffort,
             ),
@@ -84,7 +84,7 @@ class InsightsPage extends StatelessWidget {
                               AppStrings.nextMilestone,
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
-                            const Text(AppStrings.milestoneBody),
+                            Text(AppStrings.milestoneBody),
                           ],
                         ),
                       ),
@@ -127,7 +127,7 @@ class _ProgressHero extends StatelessWidget {
                   backgroundColor: const Color(0xFF49318E),
                 ),
                 Text(
-                  '${(value * 100).round()}٪',
+                  '${(value * 100).round()}${AppStrings.percentSign}',
                   style: Theme.of(
                     context,
                   ).textTheme.titleLarge?.copyWith(color: Colors.white),

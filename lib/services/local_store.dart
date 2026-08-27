@@ -1,4 +1,6 @@
-import 'package:flutter/services.dart';
+import 'local_store_stub.dart'
+    if (dart.library.io) 'local_store_io.dart'
+    if (dart.library.html) 'local_store_web.dart' as impl;
 
 abstract class LocalStore {
   Future<String?> read(String key);
@@ -6,23 +8,4 @@ abstract class LocalStore {
   Future<void> remove(String key);
 }
 
-class SharedPreferencesStore implements LocalStore {
-  static const _channel = MethodChannel('com.yourcompany.tryit/platform');
-
-  @override
-  Future<String?> read(String key) =>
-      _channel.invokeMethod<String>('getString', key);
-
-  @override
-  Future<void> write(String key, String value) async {
-    await _channel.invokeMethod<void>('setString', {
-      'key': key,
-      'value': value,
-    });
-  }
-
-  @override
-  Future<void> remove(String key) async {
-    await _channel.invokeMethod<void>('remove', key);
-  }
-}
+LocalStore createLocalStore() => impl.createLocalStore();

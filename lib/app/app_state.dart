@@ -19,6 +19,7 @@ class AppState extends ChangeNotifier {
 
   static const _consentKey = 'ai_consent_version';
   static const _chatKey = 'ai_chat_v1';
+  static const _languageKey = 'app_language';
   final LearningRepository _repository;
   final LocalStore _store;
   final AiService _aiService;
@@ -37,6 +38,7 @@ class AppState extends ChangeNotifier {
   bool get isSending => _sending;
   bool get hasAiConsent => _hasAiConsent;
   bool get canUseAi => AppConfig.aiEnabled && _hasAiConsent;
+  AppLanguage get language => AppStrings.currentLanguage;
   String? get chatError => _chatError;
   int get completedSteps => _paths.fold(
     0,
@@ -50,6 +52,10 @@ class AppState extends ChangeNotifier {
 
   Future<void> initialize() async {
     _paths = await _repository.load();
+    final storedLanguage = await _store.read(_languageKey);
+    AppStrings.setLanguage(
+      storedLanguage == 'en' ? AppLanguage.en : AppLanguage.ar,
+    );
     _hasAiConsent =
         await _store.read(_consentKey) == AppConfig.aiConsentVersion;
     final rawChat = await _store.read(_chatKey);
@@ -96,6 +102,13 @@ class AppState extends ChangeNotifier {
 
   Future<void> _persistPaths() async {
     await _repository.save(_paths);
+    notifyListeners();
+  }
+
+  Future<void> setLanguage(AppLanguage language) async {
+    if (language == AppStrings.currentLanguage) return;
+    AppStrings.setLanguage(language);
+    await _store.write(_languageKey, language == AppLanguage.en ? 'en' : 'ar');
     notifyListeners();
   }
 

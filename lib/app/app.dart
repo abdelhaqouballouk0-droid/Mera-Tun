@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,7 @@ import '../features/home/home_page.dart';
 import '../features/insights/insights_page.dart';
 import '../features/journeys/journeys_page.dart';
 import '../features/settings/settings_page.dart';
+import '../services/ads/ads.dart';
 
 class TryItApp extends StatelessWidget {
   const TryItApp({super.key, this.screenshotScene});
@@ -18,19 +20,23 @@ class TryItApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final language = context.watch<AppState>().language;
+    final isAr = language == AppLanguage.ar;
     return MaterialApp(
       title: AppStrings.appTagline,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
-      locale: const Locale('ar'),
-      supportedLocales: const [Locale('ar')],
+      locale: Locale(isAr ? 'ar' : 'en'),
+      supportedLocales: const [Locale('ar'), Locale('en')],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      builder: (context, child) =>
-          Directionality(textDirection: TextDirection.rtl, child: child!),
+      builder: (context, child) => Directionality(
+        textDirection: isAr ? TextDirection.rtl : TextDirection.ltr,
+        child: child!,
+      ),
       home: AppShell(screenshotScene: screenshotScene),
     );
   }
@@ -73,35 +79,40 @@ class _AppShellState extends State<AppShell> {
       const SettingsPage(),
     ];
     return Scaffold(
-      body: IndexedStack(index: _selectedIndex, children: pages),
+      body: Column(
+        children: [
+          Expanded(child: IndexedStack(index: _selectedIndex, children: pages)),
+          if (!kIsWeb) const AdmobBannerWidget(margin: EdgeInsets.zero),
+        ],
+      ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
         onDestinationSelected: (index) =>
             setState(() => _selectedIndex = index),
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home_rounded),
+            icon: const Icon(Icons.home_outlined),
+            selectedIcon: const Icon(Icons.home_rounded),
             label: AppStrings.home,
           ),
           NavigationDestination(
-            icon: Icon(Icons.route_outlined),
-            selectedIcon: Icon(Icons.route_rounded),
+            icon: const Icon(Icons.route_outlined),
+            selectedIcon: const Icon(Icons.route_rounded),
             label: AppStrings.journeys,
           ),
           NavigationDestination(
-            icon: Icon(Icons.auto_awesome_outlined),
-            selectedIcon: Icon(Icons.auto_awesome_rounded),
+            icon: const Icon(Icons.auto_awesome_outlined),
+            selectedIcon: const Icon(Icons.auto_awesome_rounded),
             label: AppStrings.coach,
           ),
           NavigationDestination(
-            icon: Icon(Icons.insights_outlined),
-            selectedIcon: Icon(Icons.insights_rounded),
+            icon: const Icon(Icons.insights_outlined),
+            selectedIcon: const Icon(Icons.insights_rounded),
             label: AppStrings.insights,
           ),
           NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
-            selectedIcon: Icon(Icons.settings_rounded),
+            icon: const Icon(Icons.settings_outlined),
+            selectedIcon: const Icon(Icons.settings_rounded),
             label: AppStrings.settings,
           ),
         ],

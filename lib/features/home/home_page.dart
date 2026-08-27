@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../app/app_state.dart';
-import '../../app/app_config.dart';
 import '../../core/app_strings.dart';
 import '../../core/theme.dart';
 import '../journeys/journeys_page.dart';
@@ -96,7 +95,7 @@ class _BrandHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppConfig.appName,
+              AppStrings.appName,
               style: Theme.of(
                 context,
               ).textTheme.titleLarge?.copyWith(color: AppTheme.indigo),
@@ -167,8 +166,12 @@ class _HeroCard extends StatelessWidget {
               backgroundColor: AppTheme.coral,
               foregroundColor: Colors.white,
             ),
-            icon: const Icon(Icons.arrow_back_rounded),
-            label: const Text(AppStrings.startJourney),
+            icon: Icon(
+              AppStrings.currentLanguage == AppLanguage.ar
+                  ? Icons.arrow_back_rounded
+                  : Icons.arrow_forward_rounded,
+            ),
+            label: Text(AppStrings.startJourney),
           ),
         ],
       ),
@@ -267,11 +270,11 @@ class _EmptyCard extends StatelessWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 6),
-            const Text(AppStrings.noJourneysBody, textAlign: TextAlign.center),
+            Text(AppStrings.noJourneysBody, textAlign: TextAlign.center),
             const SizedBox(height: 16),
             OutlinedButton(
               onPressed: onPressed,
-              child: const Text(AppStrings.startJourney),
+              child: Text(AppStrings.startJourney),
             ),
           ],
         ),

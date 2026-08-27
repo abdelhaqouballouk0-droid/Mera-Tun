@@ -5,12 +5,14 @@ import 'app/app.dart';
 import 'app/app_state.dart';
 import 'repositories/learning_repository.dart';
 import 'screenshots/screenshot_fixture.dart';
+import 'services/ads/ads_bootstrap.dart';
 import 'services/ai_service.dart';
 import 'services/local_store.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final store = SharedPreferencesStore();
+  await initAds();
+  final store = createLocalStore();
   final screenshotScene = screenshotSceneFromBuild();
   if (screenshotScene != null) await seedScreenshotFixture(store);
   final state = AppState(

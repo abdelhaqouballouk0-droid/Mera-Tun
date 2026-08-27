@@ -1,15 +1,9 @@
-import 'package:flutter/services.dart';
+import 'platform_service_stub.dart'
+    if (dart.library.io) 'platform_service_io.dart'
+    if (dart.library.html) 'platform_service_web.dart' as impl;
 
 class PlatformService {
   const PlatformService._();
 
-  static const _channel = MethodChannel('com.yourcompany.tryit/platform');
-
-  static Future<bool> openExternalUrl(String url) async {
-    try {
-      return await _channel.invokeMethod<bool>('openUrl', url) ?? false;
-    } on PlatformException {
-      return false;
-    }
-  }
+  static Future<bool> openExternalUrl(String url) => impl.openExternalUrl(url);
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -5,6 +6,7 @@ import '../../app/app_state.dart';
 import '../../core/app_strings.dart';
 import '../../core/theme.dart';
 import '../../models/learning_path.dart';
+import '../../services/ads/ads.dart';
 import '../../widgets/page_header.dart';
 import '../../widgets/progress_ring.dart';
 
@@ -31,7 +33,7 @@ class JourneysPage extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
           child: Column(
             children: [
-              const PageHeader(
+              PageHeader(
                 title: AppStrings.journeys,
                 subtitle: AppStrings.homeIntro,
               ),
@@ -57,7 +59,7 @@ class JourneysPage extends StatelessWidget {
         heroTag: 'newJourney',
         onPressed: () => showCreatePathSheet(context),
         icon: const Icon(Icons.add_rounded),
-        label: const Text(AppStrings.startJourney),
+        label: Text(AppStrings.startJourney),
       ),
     );
   }
@@ -81,7 +83,7 @@ class _JourneysEmpty extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 8),
-            const Text(AppStrings.noJourneysBody, textAlign: TextAlign.center),
+            Text(AppStrings.noJourneysBody, textAlign: TextAlign.center),
           ],
         ),
       ),
@@ -125,7 +127,11 @@ class _PathCard extends StatelessWidget {
                   ],
                 ),
               ),
-              const Icon(Icons.chevron_left_rounded),
+              Icon(
+                AppStrings.currentLanguage == AppLanguage.ar
+                    ? Icons.chevron_left_rounded
+                    : Icons.chevron_right_rounded,
+              ),
             ],
           ),
         ),
@@ -187,7 +193,7 @@ class _PathEditorSheetState extends State<_PathEditorSheet> {
                 key: const Key('topicField'),
                 controller: _topic,
                 textInputAction: TextInputAction.next,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: AppStrings.topicLabel,
                   hintText: AppStrings.topicHint,
                 ),
@@ -206,7 +212,7 @@ class _PathEditorSheetState extends State<_PathEditorSheet> {
                 minLines: 2,
                 maxLines: 4,
                 textInputAction: TextInputAction.done,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: AppStrings.goalLabel,
                   hintText: AppStrings.goalHint,
                 ),
@@ -275,16 +281,16 @@ class JourneyDetailPage extends StatelessWidget {
               final confirmed = await showDialog<bool>(
                 context: context,
                 builder: (dialogContext) => AlertDialog(
-                  title: const Text(AppStrings.deleteJourney),
-                  content: const Text(AppStrings.deleteConfirmation),
+                  title: Text(AppStrings.deleteJourney),
+                  content: Text(AppStrings.deleteConfirmation),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.pop(dialogContext, false),
-                      child: const Text(AppStrings.cancel),
+                      child: Text(AppStrings.cancel),
                     ),
                     FilledButton(
                       onPressed: () => Navigator.pop(dialogContext, true),
-                      child: const Text(AppStrings.delete),
+                      child: Text(AppStrings.delete),
                     ),
                   ],
                 ),
@@ -294,7 +300,7 @@ class JourneyDetailPage extends StatelessWidget {
                 if (context.mounted) Navigator.pop(context);
               }
             },
-            itemBuilder: (_) => const [
+            itemBuilder: (_) => [
               PopupMenuItem(
                 value: 'delete',
                 child: Text(AppStrings.deleteJourney),
@@ -391,16 +397,19 @@ class _CurrentChallenge extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           FilledButton.icon(
-            onPressed: () => context.read<AppState>().completeChallenge(
-              path.id,
-              challenge.id,
-            ),
+            onPressed: () async {
+              await context.read<AppState>().completeChallenge(
+                path.id,
+                challenge.id,
+              );
+              if (!kIsWeb) MultiAdsManager.instance.showInterstitialAd();
+            },
             style: FilledButton.styleFrom(
               backgroundColor: AppTheme.coral,
               foregroundColor: Colors.white,
             ),
             icon: const Icon(Icons.check_rounded),
-            label: const Text(AppStrings.done),
+            label: Text(AppStrings.done),
           ),
         ],
       ),
@@ -430,7 +439,7 @@ class _ChallengeRow extends StatelessWidget {
           ),
         ),
         title: Text(challenge.title),
-        subtitle: complete ? const Text(AppStrings.completed) : null,
+        subtitle: complete ? Text(AppStrings.completed) : null,
       ),
     );
   }
@@ -460,7 +469,7 @@ class _CompletionCard extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           const SizedBox(height: 6),
-          const Text(AppStrings.allDoneBody, textAlign: TextAlign.center),
+          Text(AppStrings.allDoneBody, textAlign: TextAlign.center),
         ],
       ),
     );

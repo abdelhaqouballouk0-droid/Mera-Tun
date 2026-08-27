@@ -93,16 +93,16 @@ class _AiChatPageState extends State<AiChatPage> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text(AppStrings.clearChat),
-        content: const Text(AppStrings.clearChatConfirmation),
+        title: Text(AppStrings.clearChat),
+        content: Text(AppStrings.clearChatConfirmation),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, false),
-            child: const Text(AppStrings.cancel),
+            child: Text(AppStrings.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(dialogContext, true),
-            child: const Text(AppStrings.clearChat),
+            child: Text(AppStrings.clearChat),
           ),
         ],
       ),
@@ -142,7 +142,7 @@ class _ConsentCard extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 10),
-                const Text(AppStrings.consentBody),
+                Text(AppStrings.consentBody),
                 const SizedBox(height: 22),
                 SizedBox(
                   width: double.infinity,
@@ -150,18 +150,18 @@ class _ConsentCard extends StatelessWidget {
                     key: const Key('acceptAiConsent'),
                     onPressed: context.read<AppState>().acceptAiConsent,
                     icon: const Icon(Icons.check_rounded),
-                    label: const Text(AppStrings.consentAccept),
+                    label: Text(AppStrings.consentAccept),
                   ),
                 ),
                 const SizedBox(height: 8),
                 Center(
                   child: TextButton(
                     onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
+                      SnackBar(
                         content: Text(AppStrings.consentDeclinedNotice),
                       ),
                     ),
-                    child: const Text(AppStrings.consentDecline),
+                    child: Text(AppStrings.consentDecline),
                   ),
                 ),
               ],
@@ -203,7 +203,7 @@ class _Conversation extends StatelessWidget {
             color: AppTheme.violet,
           ),
           const SizedBox(height: 12),
-          for (final starter in const [
+          for (final starter in [
             AppStrings.starterOne,
             AppStrings.starterTwo,
             AppStrings.starterThree,
@@ -212,7 +212,11 @@ class _Conversation extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 10),
               child: OutlinedButton.icon(
                 onPressed: () => onStarter(starter),
-                icon: const Icon(Icons.arrow_back_rounded),
+                icon: Icon(
+                  AppStrings.currentLanguage == AppLanguage.ar
+                      ? Icons.arrow_back_rounded
+                      : Icons.arrow_forward_rounded,
+                ),
                 label: Align(
                   alignment: Alignment.centerRight,
                   child: Text(starter),
@@ -250,7 +254,7 @@ class _Conversation extends StatelessWidget {
                 Expanded(child: Text(error!)),
                 TextButton(
                   onPressed: onRetry,
-                  child: const Text(AppStrings.retry),
+                  child: Text(AppStrings.retry),
                 ),
               ],
             ),
@@ -332,7 +336,7 @@ class _Composer extends StatelessWidget {
               minLines: 1,
               maxLines: 4,
               textInputAction: TextInputAction.newline,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: AppStrings.messageHint,
               ),
             ),

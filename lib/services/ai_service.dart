@@ -20,13 +20,17 @@ class AiService {
   final http.Client _client;
 
   Future<String> reply(List<ChatMessage> history) async {
-    final uri = Uri.parse(AppConfig.groqProxyUrl);
+    final uri = Uri.parse(AppConfig.groqDirectUrl);
     try {
       final response = await _client
           .post(
             uri,
-            headers: const {'Content-Type': 'application/json'},
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ${AppConfig.groqApiKey}',
+            },
             body: jsonEncode({
+              'model': AppConfig.groqModel,
               'messages': [
                 ...history
                     .take(12)

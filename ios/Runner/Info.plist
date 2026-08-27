@@ -11,7 +11,7 @@
 		<string>ar</string>
 	</array>
 	<key>CFBundleDisplayName</key>
-	<string>جرّبها</string>
+	<string>Mera Tune</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -19,7 +19,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>جرّبها</string>
+	<string>Mera Tune</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -53,6 +53,20 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<!-- AdMob (multi_ads_admob / google_mobile_ads).
+	     Real App ID for pub-1950848698072572. Keep in sync with
+	     AppConfig.admobIosAppId in lib/app/app_config.dart. Also add the
+	     full SKAdNetworkIdentifier list from Google's AdMob iOS setup docs
+	     before release for full iOS 14+ ad attribution support. -->
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-1950848698072572~2681637643</string>
+	<key>SKAdNetworkItems</key>
+	<array>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>cstr6suwn9.skadnetwork</string>
+		</dict>
 	</array>
 </dict>
 </plist>
