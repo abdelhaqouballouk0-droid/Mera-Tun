@@ -65,16 +65,21 @@ workflows:
   # App Store / TestFlight build — signed for app_store distribution and
   # auto-uploaded to App Store Connect on success.
   # PREREQUISITE — not usable as-is until you set this up in Codemagic:
-  #   Team settings > Integrations > App Store Connect: add an API key
-  #   from your Apple Developer account (App Store Connect > Users and
-  #   Access > Keys > Integrations, role "App Manager" or higher).
-  #   Codemagic then fetches/creates the certificate and provisioning
-  #   profile automatically at build time (no need to upload them
-  #   yourself), and uses the same key to push the build to App Store
-  #   Connect. Until that's configured, this workflow will fail — use
-  #   ios-simulator-debug above to just test the Flutter/Dart side.
+  #   1. Team settings > Code Signing Identities > iOS Certificates:
+  #      upload your Apple Distribution certificate (.p12 + password).
+  #   2. Team settings > Code Signing Identities > iOS Provisioning
+  #      Profiles: upload a matching "App Store" provisioning profile
+  #      for bundle_identifier below, generated with that same certificate.
+  #   3. Team settings > Integrations > App Store Connect: add an API key
+  #      (App Store Connect > Users and Access > Integrations, role
+  #      "Admin") — only used to publish the built IPA to TestFlight, not
+  #      for signing.
+  #   Codemagic then matches the uploaded certificate + profile against
+  #   ios_signing below automatically; it does NOT auto-generate them —
+  #   see ios-simulator-debug above if you just want to test the
+  #   Flutter/Dart side without setting any of this up.
   ios-app-store:
-    name: iOS App Store Build (needs App Store Connect key set up in Codemagic)
+    name: iOS App Store Build (needs signing identities uploaded in Codemagic)
     max_build_duration: 60
     integrations:
       app_store_connect: Codemagic
@@ -82,8 +87,10 @@ workflows:
       flutter: stable
       xcode: latest
       cocoapods: default
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.meratun.app
       vars:
-        BUNDLE_ID: com.meratun.app
         GROQ_API_KEY: $GROQ_API_KEY
         ADS_REMOTE_CONFIG_URL: $ADS_REMOTE_CONFIG_URL
     scripts:
@@ -92,15 +99,6 @@ workflows:
       - name: Install CocoaPods
         script: |
           find . -maxdepth 2 -name "Podfile" -execdir pod install \;
-      - name: Set up code signing
-        script: keychain initialize
-      - name: Fetch signing files
-        script: |
-          app-store-connect fetch-signing-files "$BUNDLE_ID" \
-            --type IOS_APP_STORE \
-            --create
-      - name: Use signing files
-        script: xcode-project use-profiles
       - name: Build IPA
         script: |
           flutter build ipa --release \
