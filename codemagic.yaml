@@ -26,7 +26,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - ayoubboutglay318@gmail.com
+          - abdelhaqouballouk0@gmail.com
         notify:
           success: true
           failure: true
@@ -57,7 +57,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - ayoubboutglay318@gmail.com
+          - abdelhaqouballouk0@gmail.com
         notify:
           success: true
           failure: true
@@ -112,7 +112,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - ayoubboutglay318@gmail.com
+          - abdelhaqouballouk0@gmail.com
         notify:
           success: true
           failure: true
