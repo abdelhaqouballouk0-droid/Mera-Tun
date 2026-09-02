@@ -4,23 +4,21 @@ workflows:
     max_build_duration: 30
     environment:
       flutter: stable
-      vars:
-        # Pass through the same --dart-define values used locally (see
-        # .env.example). Leave GROQ_API_KEY unset for a build-only test —
-        # the app builds and runs fine without it, AI chat just stays
-        # gated behind consent + a working proxy URL.
-        GROQ_API_KEY: $GROQ_API_KEY
-        ADS_REMOTE_CONFIG_URL: $ADS_REMOTE_CONFIG_URL
     scripts:
       - name: Get Flutter packages
         script: flutter pub get
       - name: Analyze
         script: flutter analyze
+      # No --dart-define flags here on purpose: GROQ_PROXY_URL and
+      # ADS_REMOTE_CONFIG_URL both have safe values baked into AppConfig
+      # (see lib/app/app_config.dart) as their defaultValue. Passing
+      # --dart-define=X=$X when the Codemagic env var X isn't actually
+      # set would override that default with an EMPTY string instead of
+      # falling back to it — that's exactly the bug that broke AI chat in
+      # a previous build. Only add a --dart-define here if you deliberately
+      # want to point this specific build at a different value.
       - name: Build debug APK
-        script: |
-          flutter build apk --debug \
-            --dart-define=GROQ_API_KEY=$GROQ_API_KEY \
-            --dart-define=ADS_REMOTE_CONFIG_URL=$ADS_REMOTE_CONFIG_URL
+        script: flutter build apk --debug
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
     publishing:
@@ -38,9 +36,6 @@ workflows:
       flutter: stable
       xcode: latest
       cocoapods: default
-      vars:
-        GROQ_API_KEY: $GROQ_API_KEY
-        ADS_REMOTE_CONFIG_URL: $ADS_REMOTE_CONFIG_URL
     scripts:
       - name: Get Flutter packages
         script: flutter pub get
@@ -48,10 +43,7 @@ workflows:
         script: |
           find . -maxdepth 2 -name "Podfile" -execdir pod install \;
       - name: Build for iOS Simulator
-        script: |
-          flutter build ios --debug --simulator \
-            --dart-define=GROQ_API_KEY=$GROQ_API_KEY \
-            --dart-define=ADS_REMOTE_CONFIG_URL=$ADS_REMOTE_CONFIG_URL
+        script: flutter build ios --debug --simulator
     artifacts:
       - build/ios/iphonesimulator/*.app
     publishing:
@@ -90,9 +82,6 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.meratun.app
-      vars:
-        GROQ_API_KEY: $GROQ_API_KEY
-        ADS_REMOTE_CONFIG_URL: $ADS_REMOTE_CONFIG_URL
     scripts:
       - name: Get Flutter packages
         script: flutter pub get
@@ -101,12 +90,15 @@ workflows:
           find . -maxdepth 2 -name "Podfile" -execdir pod install \;
       - name: Apply signing files to the Xcode project
         script: xcode-project use-profiles
+      # No --dart-define flags here on purpose — see the comment on
+      # android-debug above. AppConfig.groqProxyUrl already points at the
+      # deployed proxy (server/groq-proxy/) by default; update that
+      # default directly in lib/app/app_config.dart if the proxy URL ever
+      # changes, rather than relying on a CI variable being set correctly.
       - name: Build IPA
         script: |
           flutter build ipa --release \
-            --export-options-plist=/Users/builder/export_options.plist \
-            --dart-define=GROQ_API_KEY=$GROQ_API_KEY \
-            --dart-define=ADS_REMOTE_CONFIG_URL=$ADS_REMOTE_CONFIG_URL
+            --export-options-plist=/Users/builder/export_options.plist
     artifacts:
       - build/ios/ipa/*.ipa
     publishing:

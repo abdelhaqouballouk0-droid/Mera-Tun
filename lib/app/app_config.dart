@@ -13,10 +13,16 @@ class AppConfig {
   static const supportUrl = 'https://example.com/support';
   static const termsUrl = '';
 
+  // AI chat calls only this HTTPS proxy — never embed a raw GROQ_API_KEY in
+  // the app. The proxy holds the real Groq key server-side (see
+  // server/groq-proxy/) and is the only place it's ever exposed, so this
+  // URL is safe to bake into the client (nothing secret in it) and
+  // doesn't depend on getting a --dart-define right in every CI build.
   static const aiEnabled = true;
-  static const groqDirectUrl = 'https://api.groq.com/openai/v1/chat/completions';
-  static const groqApiKey = String.fromEnvironment('GROQ_API_KEY');
-  static const groqModel = 'openai/gpt-oss-120b';
+  static const groqProxyUrl = String.fromEnvironment(
+    'GROQ_PROXY_URL',
+    defaultValue: 'https://api.example.com/groq/chat',
+  );
   static const aiConsentVersion = '1';
   static const revenueCatEnabled = false;
 
@@ -66,10 +72,8 @@ class AppConfig {
 
   static List<String> releaseConfigurationIssues() {
     final issues = <String>[];
-    if (aiEnabled && groqApiKey.isEmpty) {
-      issues.add('GROQ_API_KEY');
-    }
     for (final entry in {
+      if (aiEnabled) 'GROQ_PROXY_URL': groqProxyUrl,
       'PRIVACY_POLICY_URL': privacyPolicyUrl,
       'SUPPORT_URL': supportUrl,
     }.entries) {

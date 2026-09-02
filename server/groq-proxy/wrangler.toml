@@ -1,0 +1,7 @@
+name = "mera-tun-groq-proxy"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+# After deploying, set the real Groq API key as a secret (never in this
+# file, never committed to git):
+#   wrangler secret put GROQ_API_KEY

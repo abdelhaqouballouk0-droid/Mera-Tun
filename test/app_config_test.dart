@@ -5,7 +5,7 @@ void main() {
   test('public runtime configuration is structurally valid', () {
     expect(AppConfig.bundleId, matches(r'^[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$'));
     expect(AppConfig.version, matches(r'^\d+\.\d+\.\d+$'));
-    expect(Uri.parse(AppConfig.groqDirectUrl).scheme, 'https');
+    expect(Uri.parse(AppConfig.groqProxyUrl).scheme, 'https');
     expect(Uri.parse(AppConfig.privacyPolicyUrl).scheme, 'https');
     expect(AppConfig.revenueCatEnabled, isFalse);
   });
