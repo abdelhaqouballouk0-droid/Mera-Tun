@@ -21,7 +21,7 @@ class AppConfig {
   static const aiEnabled = true;
   static const groqProxyUrl = String.fromEnvironment(
     'GROQ_PROXY_URL',
-    defaultValue: 'https://api.example.com/groq/chat',
+    defaultValue: 'https://mera-tun-groq-proxy.studentabdelhak.workers.dev',
   );
   static const aiConsentVersion = '1';
   static const revenueCatEnabled = false;
