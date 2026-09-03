@@ -5,7 +5,7 @@ class AppConfig {
   static const language = 'ar';
   static const bundleId = 'com.meratun.app';
   static const version = '1.0.0';
-  static const buildNumber = '1';
+  static const buildNumber = '2';
   static const appIdea =
       'مساعد للتعلّم بالممارسة يحوّل ما تريد تعلّمه إلى تحديات صغيرة وتفاعلية.';
 
